@@ -1,0 +1,82 @@
+<!--<div>-->
+<!--<form  (ngSubmit)="createProduct()" autocomplete="off" #bookForm='ngForm'>-->
+<!--  <table>-->
+<!--    <tr>-->
+<!--      <td>Id: </td>-->
+<!--      <td><input type="text" [(ngModel)]="product.id" name="id" required ></td>-->
+<!--      <td *ngIf="bookForm.controls.id.errors">-->
+<!--        ID is required.-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>Name</td>-->
+<!--      <td><input type="text" [(ngModel)]="product.name" name="name"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>Price:</td>-->
+<!--      <td><input type="text" [(ngModel)]="product.price" name="price"></td>-->
+<!--    </tr>-->
+<!--  </table>-->
+<!--  <button value="submit" type="submit">Create</button>-->
+<!--</form>-->
+<!--</div>-->
+<!--<div>-->
+<!--  <p>{{bookForm.value | json}}</p>-->
+<!--</div>-->
+<!--<div>-->
+<!--<div *ngFor="let product of products">-->
+<!--  <p>{{bookForm.valid | json}}</p>-->
+<!--  <p>{{product.name}}</p>-->
+<!--</div>-->
+<!--</div>-->
+<div>
+<form    [formGroup]="productForm"  >
+  <table>
+    <tr>
+      <td>Id: </td>
+      <td><input type="text" formControlName="id"></td>
+      <td *ngIf="productForm.get('id').errors?.required ">
+        ID is required.
+      </td>
+<!--      <td>{{productForm.value.id}}</td>-->
+      <td *ngIf="productForm.get('id').errors?.min">
+        ID is min = 1.
+      </td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><input type="text" formControlName="name"></td>
+      <td *ngIf="productForm.get('name').errors?.required ">
+        Name is required.
+      </td>
+      <td *ngIf="productForm.get('name').errors?.minlength">
+        Name is length = 2
+      </td>
+    </tr>
+    <tr>
+      <td>Price:</td>
+      <td><input type="text" formControlName="price"></td>
+      <td *ngIf="productForm.get('price').errors?.required ">
+        Price is required.
+      </td>
+
+      <td *ngIf="productForm.get('price').errors?.pattern">
+        price is number.
+      </td>
+    </tr>
+    <p>{{productForm.valid}}</p>
+  </table>
+  <div *ngIf="(productForm.valid) && (productForm.value.id == productForm.value.price)">abc</div>
+  <div *ngIf="productForm.valid">
+  <button  (click)="createProduct1()" value="submit" type="submit">Create</button>
+  </div>
+</form>
+</div>
+<div>
+  <p>{{productForm.value | json}}</p>
+</div>
+<div>
+<div *ngFor="let product of products">
+  <p>{{product.name}}</p>
+</div>
+</div>
